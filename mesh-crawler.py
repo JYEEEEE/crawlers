@@ -1,6 +1,14 @@
-import requests
+"""
+主入口：从给定的mesh词爬取到子mesh词并入库
+"""
 import time
-import json
+
+import requests
+
+from mongodb import db
+
+# 当前脚本的数据存入到mesh表中
+table = db.mesh
 
 # hardcode第一层mesh词
 FIRST_LEVEL_MESHES = [
@@ -24,7 +32,8 @@ FIRST_LEVEL_MESHES = [
     {'RecordName': 'Geographicals', 'RecordUI': '', 'TreeNumber': 'Z', 'HasChildren': True},
 ]
 REQUEST_HEADERS = {
-    'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36",  # noqa
+    'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36",
+    # noqa
 }
 BASE_URL = 'https://meshb.nlm.nih.gov/api/tree/children/'
 
@@ -34,8 +43,8 @@ def get_children_meshes(data: list = None):
     爬取所有子mesh词
     """
     for item in data:
-        with open('./crawler/unique-treenumber-mesh.txt', 'a') as file:
-            file.write(json.dumps(item) + '\n')
+        table.insert_one(item)
+        print('insert success')
         if item.get("HasChildren"):
             time.sleep(1)
             resp = requests.get(BASE_URL + item.get('TreeNumber'), headers=REQUEST_HEADERS)
@@ -43,7 +52,6 @@ def get_children_meshes(data: list = None):
 
 
 get_children_meshes(FIRST_LEVEL_MESHES)
-
 
 # """
 # 对爬下来的数据根据RecordUI进行合并，作为爬取pubmed文章的依据
