@@ -10,6 +10,7 @@ host = '192.168.10.21'
 port = 27017
 
 mongoclient = pymongo.MongoClient("mongodb://{host}:{port}/".format(host=host, port=port))
+db = mongoclient['crawler']  # 数据库名crawler
 
 if __name__ == '__main__':
     # 测试数据库连接是否正常，直接运行这个脚本就可以
