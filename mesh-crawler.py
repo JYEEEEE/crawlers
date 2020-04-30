@@ -2,6 +2,7 @@
 主入口：从给定的mesh词爬取到子mesh词并入库
 """
 import time
+from multiprocessing import Pool
 
 import requests
 
@@ -46,12 +47,31 @@ def get_children_meshes(data: list = None):
         table.insert_one(item)
         print('insert success')
         if item.get("HasChildren"):
+            # sleep 操作不是必须的，酌情设置等待时间
             time.sleep(1)
             resp = requests.get(BASE_URL + item.get('TreeNumber'), headers=REQUEST_HEADERS)
             get_children_meshes(resp.json())
 
 
-get_children_meshes(FIRST_LEVEL_MESHES)
+def mlutiprocess_deal(data: list = None, pool_size: int = 8):
+    """
+    多进程爬取，只有主进程才可以创建子进程。因此将data列表中的每一个元素都创建一个进程去处理
+
+    :param data:
+    :param pool_size: 进程池大小，默认值为8
+    :return:
+    """
+    pool = Pool(processes=pool_size)
+    for item in data:
+        subprocess_param = [item]  # 传入子进程的参数, 由于get_children_meshes接受参数data的类型为list，所以这个将item包过程list形式
+        pool.apply_async(get_children_meshes, (subprocess_param,))
+        print('apply process success.')
+
+    print('all process has applied. wait them finish...')
+    pool.close()
+    pool.join()
+    print('all sub-process has executed done.')
+
 
 # """
 # 对爬下来的数据根据RecordUI进行合并，作为爬取pubmed文章的依据
@@ -89,3 +109,7 @@ get_children_meshes(FIRST_LEVEL_MESHES)
 #         f.write(json.dumps(mesh) + '\n')
 #     for mesh in unique_mesh_term.values():
 #         f.write(json.dumps(mesh) + '\n')
+
+
+if __name__ == '__main__':
+    mlutiprocess_deal(FIRST_LEVEL_MESHES, 4)
