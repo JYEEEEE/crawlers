@@ -1,10 +1,11 @@
 import json
 import math
-import os
 import re
 
 import requests
 from bs4 import BeautifulSoup
+
+from parse_content import parse_medline
 
 BASE_URL = "https://www.ncbi.nlm.nih.gov/pubmed/"
 
@@ -14,7 +15,8 @@ DEFAULT_PARAM = {
     'format': 'text',
 }
 REQUEST_HEADERS = {
-    'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36",  # noqa
+    'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36",
+    # noqa
 }
 
 
@@ -90,8 +92,10 @@ def get_content(pmid, save_dir, params):
 
     """
     resp = requests.get(BASE_URL + pmid, params)
-    if not os.path.exists('./crawler/pubmed-details/' + save_dir):
-        os.mkdir('./crawler/pubmed-details/' + save_dir)
+
+    # 现在数据存入数据库，所以注释存入文件的步骤
+    # if not os.path.exists('./pubmed-details/' + save_dir):
+    #     os.makedirs('./pubmed-details/' + save_dir)  # 创建多级目录
 
     # 参数中有format时，获取<pre></pre>中，当参数仅有report且只在['abstract', 'docsum']中时，获取<body></body>中的信息
     if params['format'] and params['report'] in ['medline', 'xml', 'docsum', 'abstract', 'uilist']:
@@ -103,13 +107,19 @@ def get_content(pmid, save_dir, params):
     else:
         content = resp.text.strip()
 
-    file_name = './crawler/pubmed-details/' + save_dir + '/' + pmid + '.txt'
-    with open(file_name, 'w') as f:
-        f.write(content)
-    print('已经将结果写入到', file_name)
+    if params['report'] == 'medline':
+        parse_medline(content)
+
+    # content为文章内容
+    # file_name = './pubmed-details/' + save_dir + '/' + pmid + '.txt'
+    # with open(file_name, 'w') as f:
+    #     f.write(content)
+    # print('已经将结果写入到', file_name)
 
 
-with open('./crawler/unique-id-mesh.txt', 'r') as f:
-    for line in f:
-        item = json.loads(line)
-        query(item.get('RecordName'))
+if __name__ == '__main__':
+
+    with open('./unique-treenumber-mesh.txt', 'r') as f:
+        for line in f:
+            item = json.loads(line)
+            query(item.get('RecordName'))
