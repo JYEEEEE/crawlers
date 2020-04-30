@@ -1,0 +1,72 @@
+
+PMID- 32189624
+OWN - NLM
+STAT- MEDLINE
+DCOM- 20200416
+LR  - 20200416
+IS  - 1089-6287 (Print)
+IS  - 1089-6287 (Linking)
+VI  - 67
+IP  - 2
+DP  - 2019 Fall
+TI  - Anders Retzius and the Dental Histologists of the Mid-Nineteenth Century: Their
+      Contribution to Comparative Anatomy, Histology and Anthropology.
+PG  - 58-97
+LID - S0007-5132.2019.67.2.58 [pii]
+AB  - Anatomy, comparative anatomy and embryology are fundamental to taxonomy and
+      evolutionary biology. In the mid-nineteenth century many anatomists and
+      zoologists made major contributions to more than one of these disciplines and a
+      surprising number of them were also histologists. Historical accounts of
+      discoveries and developments in anatomy, and in particular dental histology,
+      rarely consider broader contributions and have tended to be concerned with
+      establishing historical priority about who discovered or described what first.
+      The period 1830 to 1840 saw new developments in light microscopy that enabled
+      studies of histology, cellular pathology and embryology. It also saw a shift away
+      from older ideas such as Naturphilosophie and vitalism towards a more rigorous
+      experimental approach to scientific investigation. Many scientists with diverse
+      research interests were working in parallel on comparative dental histology and
+      were in many cases largely unaware of each other's work. One researcher, Anders
+      Retzius, travelled widely across Europe, corresponded regularly with his
+      scientific colleagues and, probably unbeknownst to himself in his own lifetime,
+      made a lasting contribution to dental histology. Anders Retzius was a clinician, 
+      an anatomist, a comparative anatomist, a histologist and latterly an
+      anthropologist. His life and career spanned the whole of this fast-moving period 
+      in the history of anatomy and histology.
+CI  - Copyright 2019 (c) American Academy of the History of Dentistry.
+FAU - Dean, M Christopher
+AU  - Dean MC
+AD  - Professor Emeritus, Department of Cell and Developmental Biology University
+      College London, WC1E 6BT, UK Calleva Dental Histologist, Centre for Human
+      Evolution Research, Earth Sciences Natural History Museum, London, SW7 5BD, UK.
+LA  - eng
+PT  - Historical Article
+PT  - Journal Article
+PL  - United States
+TA  - J Hist Dent
+JT  - Journal of the history of dentistry
+JID - 9609747
+SB  - D
+SB  - QIS
+MH  - *Anatomists
+MH  - *Anatomy, Comparative/history
+MH  - *Anthropology/history
+MH  - Europe
+MH  - Histological Techniques
+MH  - *Histology/history
+MH  - *History of Dentistry
+MH  - History, 19th Century
+MH  - Humans
+OTO - NOTNLM
+OT  - Anders Retzius
+OT  - dental anthropology
+OT  - dental histologists
+OT  - history of dentistry
+EDAT- 2020/03/20 06:00
+MHDA- 2020/04/17 06:00
+CRDT- 2020/03/20 06:00
+PHST- 2020/03/20 06:00 [entrez]
+PHST- 2020/03/20 06:00 [pubmed]
+PHST- 2020/04/17 06:00 [medline]
+AID - S0007-5132.2019.67.2.58 [pii]
+PST - ppublish
+SO  - J Hist Dent. 2019 Fall;67(2):58-97.

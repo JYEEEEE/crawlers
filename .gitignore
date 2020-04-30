@@ -1,0 +1,31 @@
+# settings_local.example.py 中默认数据库为 db.sqlite3，因此忽略该文件，防止开发者意外提交
+db.sqlite3
+# 项目本地配置文件，含有隐私数据，不允许提交
+nsproject/settings_local.py
+
+# python 编译缓存文件
+*.py[cd]
+__pycache__/
+
+# macOS 目录配置文件
+.DS_Store
+
+node_modules/
+
+# 我们将设置所有编译生成的文件都放到 build/
+build/
+# MEDIA_ROOT 指向 data/ 目录
+/data/
+
+# IDE 配置文件
+/.idea/
+/.vscode/
+
+# 项目本地虚拟环境
+/.venv/
+
+# 我们使用 yarn，因此不需要 package-lock.json
+package-lock.json
+
+# 运行时会生成的一些文件（比如 collectstatic 会输出到 .run/static/ )
+/.run/
