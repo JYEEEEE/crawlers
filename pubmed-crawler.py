@@ -1,6 +1,7 @@
 import json
 import math
 import re
+from multiprocessing import Pool
 
 import requests
 from bs4 import BeautifulSoup
@@ -20,16 +21,31 @@ REQUEST_HEADERS = {
 }
 
 
-def query(record_name, default='Mesh Terms', current=1, pagesize=200):
+def query(record_name, default='Mesh Terms', current=1, pagesize=200, pool_size=8):
     """
     查询关键词，并开始爬取数据
 
+    :param record_name:
+    :param default:
+    :param current:
+    :param pagesize:
+    :param pool_size:
+    :return:
     """
     print('初始化处理', record_name)
     total = get_total_count(record_name, default=default, current=current, pagesize=pagesize)
     print('总数:', total)
+
+    # 创建进程池，每一页使用一个进程处理
+    pool = Pool(processes=pool_size)
     for i in range(1, math.ceil(total / pagesize) + 1):
-        deal_page(record_name, default, current=i, pagesize=pagesize)
+        pool.apply_async(deal_page, (record_name, default, i, pagesize,))  # 传入子进程的参数
+        print('apply process success.')
+
+    print('all process has applied. wait them finish...')
+    pool.close()
+    pool.join()
+    print('all sub-process has executed done.')
 
 
 def get_total_count(record_name, default='Mesh Terms', current=1, pagesize=200):
