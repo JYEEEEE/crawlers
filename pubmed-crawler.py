@@ -99,11 +99,11 @@ def deal_page(record_name, default='Mesh Terms', current=1, pagesize=200):
         get_content(pmid, record_name, DEFAULT_PARAM)
 
 
-def get_content(pmid, save_dir, params):
+def get_content(pmid, record_name, params):
     """
     爬取pmid对应的文章，并将页面body内容保存到以pmid为名的文件中，同一个record_name检索出来的所有文章都存放在record_name为名的文件夹中
 
-    save_dir: 保存路径
+    record_name:
     params: 页面参数
 
     """
@@ -124,7 +124,7 @@ def get_content(pmid, save_dir, params):
         content = resp.text.strip()
 
     if params['report'] == 'medline':
-        parse_medline(content)
+        parse_medline(content, record_name)
 
     # content为文章内容
     # file_name = './pubmed-details/' + save_dir + '/' + pmid + '.txt'

@@ -18,13 +18,14 @@ def save_content_to_mongodb(document: dict):
     print('insert content success.')
 
 
-def parse_medline(content):
+def parse_medline(content, record_name):
     """
     解析medline格式的文章，并存入数据库
+    :param record_name:
     :param content:
     :return:
     """
-    document = {}  # 将文章解析为dict结构
+    document = {'RecordName': record_name}  # 将文章解析为dict结构
 
     sections = []  # 段落, 举例如下: DP为一个段落，内容只有一行，TI为一个段落内容确有两行。sections用来在for循环中保存当前段落的行。
     # 例如，解析DP行时，sections=['DP', '2019 Fall']; 解析TI行时, sections=[
@@ -62,4 +63,4 @@ def parse_medline(content):
 
 if __name__ == '__main__':
     with open('./32189624.txt', 'r') as f:
-        parse_medline(f.read())
+        parse_medline(f.read(), 'test')
